@@ -661,12 +661,12 @@ width: fill
 toc-item toc:
 link: $toc.url
 text: $toc.title
-size: 30
-line-height: 22
+size: 22
+line-height: 26
 min-width: fill
 padding-left: 30
 padding-top: 3
-padding-bottom: 3
+padding-bottom: 6
 border-bottom: 2
 border-color: #4540D9
 border-color $fpm.dark-mode: #B4B2F1
@@ -689,8 +689,8 @@ width: fill
 toc-item toc:
 link: $toc.url
 text: $toc.title
-size: 24
-line-height: 22
+size: 18
+line-height: 24
 min-width: fill
 padding-left: 30
 padding-top: 3
