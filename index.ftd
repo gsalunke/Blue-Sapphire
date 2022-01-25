@@ -175,6 +175,7 @@ align: center
 
 --- ftd.column:
 id: main-container
+min-height: percent 100
 max-width: 1000
 align: top
 spacing: 100
