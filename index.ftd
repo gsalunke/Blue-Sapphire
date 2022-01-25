@@ -661,8 +661,8 @@ width: fill
 toc-item toc:
 link: $toc.url
 text: $toc.title
-size: 22
-line-height: 26
+size: 20
+line-height: 24
 min-width: fill
 padding-left: 30
 padding-top: 3
@@ -680,7 +680,6 @@ toc: $obj
 
 -- ftd.column toc-instance-child:
 toc-item toc:
-padding-left: 10
 padding-top: 2
 padding-bottom: 2
 width: fill
@@ -689,13 +688,13 @@ width: fill
 toc-item toc:
 link: $toc.url
 text: $toc.title
-size: 18
-line-height: 24
+size: 16
+line-height: 18
 min-width: fill
 padding-left: 30
 padding-top: 3
 padding-bottom: 3
-font: Roboto
+font: Roboto-300
 color: $neutral-700
 color if $fpm.dark-mode: $neutral-200
 
