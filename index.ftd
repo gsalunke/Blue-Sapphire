@@ -136,11 +136,13 @@ id:  content-container
 
 -- ftd.column doc-page:
 toc-item list toc: $toc
+string bg: ./static/Home.png
+string bg-dark: ./static/Home-dark.png
 width: fill
 open: main-container
 background-parallax: true
-background-image: ./static/Home.png
-background-image if $fpm.dark-mode: ./static/Home.png
+background-image: $bg
+background-image if $fpm.dark-mode: $bg
 background-color: $neutral
 background-color if $fpm.dark-mode: $neutral-700
 
@@ -660,21 +662,48 @@ width: fill
 toc-item toc:
 link: $toc.url
 text: $toc.title
-size: 15
+size: 30
 line-height: 22
 min-width: fill
 padding-left: 10
 padding-top: 3
 padding-bottom: 3
-border-bottom: 1
-border-color: #fff
+border-bottom: 2
+border-color: #4540D9
+border-color $fpm.dark-mode: #B4B2F1
+font: Roboto-700
+color: $neutral-700
+color if $fpm.dark-mode: $neutral-200
+
+--- toc-instance-child:
+$loop$: $toc.children as $obj
+toc: $obj
+
+-- ftd.column toc-instance-child:
+toc-item toc:
+padding-left: 10
+padding-top: 2
+padding-bottom: 2
+width: fill
+
+--- ftd.text:
+toc-item toc:
+link: $toc.url
+text: $toc.title
+size: 24
+line-height: 22
+min-width: fill
+padding-left: 10
+padding-top: 3
+padding-bottom: 3
 font: Roboto
 color: $neutral-700
 color if $fpm.dark-mode: $neutral-200
 
---- toc-instance:
+--- toc-instance-child:
 $loop$: $toc.children as $obj
 toc: $obj
+
 
 -- ftd.column render-toc:
 toc-item list toc-obj:
