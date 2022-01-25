@@ -1,6 +1,6 @@
 -- import: fpm
 
--- fpm.package: book-theme
+-- fpm.package: gsalunke.github.io/Blue-Sapphire
 zip: github.com/gsalunke/Blue-Sapphire/archive/refs/heads/main.zip
 
 
