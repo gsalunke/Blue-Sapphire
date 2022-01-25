@@ -764,8 +764,8 @@ optional boolean collapsed:
 optional caption title:
 optional boolean two_columns:
 text: $body
-size: 24
-line-height: 34
+size: 16
+line-height: 22
 color: $neutral-700
 color if $fpm.dark-mode: $neutral-200
 padding-bottom: 8
@@ -834,12 +834,12 @@ padding-bottom: 12
 caption $title:
 text: $title
 region: title
-size: 48
-line-height: 26
+size: 32
+line-height: 32
 color: $neutral-800
 color if $fpm.dark-mode: $neutral
 style: bold
-padding-bottom: 32
+padding-bottom: 20
 padding-top: 16
 font: Roboto
 
