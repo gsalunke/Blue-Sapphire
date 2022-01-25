@@ -1,6 +1,7 @@
 -- import: fpm
 
 -- fpm.package: book-theme
+zip: github.com/gsalunke/Blue-Sapphire/archive/refs/heads/main.zip
 
 
 -- fpm.font: Roboto
