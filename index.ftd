@@ -25,7 +25,7 @@
 -- integer max-width: 1000
 -- string github: NA
 -- string site-name: .
--- string site-icon: static/FTD logo.png
+-- string site-icon: https://res.cloudinary.com/dh79l3hex/image/upload/v1643116033/FTD_logo_c3an5b.png
 -- string site-url: NA
 
 
@@ -136,8 +136,8 @@ id:  content-container
 
 -- ftd.column doc-page:
 toc-item list toc: $toc
-string bg: static/Home.png
-string bg-dark: static/Home-dark.png
+string bg: https://res.cloudinary.com/dh79l3hex/image/upload/v1643116034/Home_e1hwo4.png
+string bg-dark: https://res.cloudinary.com/dh79l3hex/image/upload/v1643116034/Home_e1hwo4.png
 width: fill
 open: main-container
 background-parallax: true
