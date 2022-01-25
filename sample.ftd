@@ -8,7 +8,15 @@
 $processor$: toc
 
 - index.html
-  Introduction
+  Getting started
+  - blah-blah/
+    Quickstart
+  - blah-installation/
+    Installation
+    - blah-installation/
+      Basic setup
+    - blah-installation/
+      System Configurations
 - ch00-00-quickstart/
   Quickstart
 - ch00-00-quickstart/
