@@ -14,8 +14,8 @@
 -- string neutral-800: #0A1A1F
 -- string header-dark-color: #151E4F
 -- string header-light-color: #151E4F
--- string sidebar-dark-color: transparent
--- string sidebar-light-color: transparent
+-- string sidebar-dark-color: #2B2B2B
+-- string sidebar-light-color: #F6F7FB
 -- string content-light-color: #ffffff
 -- string content-dark-color: #2A2A2A
 
@@ -692,7 +692,7 @@ text: $toc.title
 size: 16
 line-height: 18
 min-width: fill
-padding-left: 30
+padding-left: 40
 padding-top: 3
 padding-bottom: 3
 font: Roboto-300
