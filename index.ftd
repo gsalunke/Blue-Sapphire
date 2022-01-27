@@ -20,6 +20,10 @@
 -- string sidebar-mobile-light-color: #F6F7FB
 -- string content-light-color: #ffffff
 -- string content-dark-color: #2A2A2A
+-- string bg-desktop-light: https://res.cloudinary.com/dh79l3hex/image/upload/v1643267664/home-desktop-light_g6e9a9.png
+-- string bg-desktop-dark: https://res.cloudinary.com/dh79l3hex/image/upload/v1643267665/home_desktop-dark_z3raie.png
+-- string bg-mobile-light: https://res.cloudinary.com/dh79l3hex/image/upload/v1643267529/home-mobile-light_tj0n27.png
+-- string bg-mobile-dark: https://res.cloudinary.com/dh79l3hex/image/upload/v1643267529/home-mobile-dark_vmvhip.png
 
 
 
@@ -138,13 +142,11 @@ id:  content-container
 
 -- ftd.column doc-page:
 toc-item list toc: $toc
-string bg: https://res.cloudinary.com/dh79l3hex/image/upload/v1643116034/Home_e1hwo4.png
-string bg-dark: https://res.cloudinary.com/dh79l3hex/image/upload/v1643116034/Home_e1hwo4.png
 width: fill
 open: main-container
 background-parallax: true
-background-image: $bg
-background-image if $fpm.dark-mode: $bg
+background-image: $bg-desktop-light
+background-image if $fpm.dark-mode: $bg-desktop-dark
 background-color: $neutral
 background-color if $fpm.dark-mode: $neutral-700
 
@@ -205,6 +207,9 @@ footer-toc: $footer-toc
 toc-item list toc: $toc
 width: fill
 open: main-container
+background-parallax: true
+background-image: $bg-mobile-light
+background-image if $fpm.dark-mode: $bg-mobile-dark
 background-color: $neutral
 background-color if $fpm.dark-mode: $neutral-700
 

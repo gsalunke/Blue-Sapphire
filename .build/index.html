@@ -259,7 +259,7 @@ font-family: Roboto-300 }</style>
             // all ftd_utils are meant to be pure functions only: they can only depend on the
 // input passed, not on closures or global data etc
 let ftd_utils = {
-    resolve_reference: function (value, reference, data) {
+    resolve_reference: function (value, reference, data, obj) {
         if (value instanceof Object) {
             let result = value instanceof Array ? [] : {};
             for (var key of Object.keys(value)) {
@@ -268,7 +268,7 @@ let ftd_utils = {
                 } else if (reference[key] !== undefined && reference[key] !== null) {
                     result[key] = data[reference[key]]["value"] !== undefined ? data[reference[key]].value : value[key];
                 } else {
-                    result[key] = value[key];
+                    result[key] = (value[key] === "$VALUE" && obj.value !== undefined) ? obj.value : value[key];
                 }
             }
             for (var key of Object.keys(reference)) {
@@ -277,10 +277,10 @@ let ftd_utils = {
                 }
             }
             return result;
-        } else if (reference!== null && reference!== undefined && data[reference]["value"] !== undefined) {
+        } else if (reference !== null && reference !== undefined && data[reference] !== undefined && data[reference]["value"] !== undefined) {
             return data[reference]["value"];
         } else {
-            return value;
+            return (value === "$VALUE" && obj.value !== undefined) ? obj.value : value;
         }
     },
 
@@ -560,7 +560,6 @@ let ftd_utils = {
         data[target].value = value.toString();
 
         let dependencies = data[target].dependencies;
-        console.log(dependencies);
         for (const dependency in dependencies) {
             if (!dependencies.hasOwnProperty(dependency)) {
                 continue;
@@ -576,7 +575,8 @@ let ftd_utils = {
                         ftd_utils.remove_nodes(Object.keys(dependencies).filter(s => !s.endsWith(':dummy')), id);
                         let deps = {};
                         for (const dom_id in dom_ids) {
-                            deps[dom_ids[dom_id].replace(`:${id}`, "")] = dependencies[dependency];
+                            let id_without_main = dom_ids[dom_id].substring(0, dom_ids[dom_id].length - `:${id}`.length )
+                            deps[id_without_main] = dependencies[dependency];
                         }
                         deps[dependency] = dependencies[dependency];
                         data[target].dependencies = deps;
@@ -585,7 +585,10 @@ let ftd_utils = {
                     }
                 } else if (json_dependency.dependency_type === "Visible") {
                     let display = "none";
-                    if (data[target].value === json_dependency.condition) {
+                    if ((data[target].value === json_dependency.condition)
+                        || (json_dependency.condition === "$IsNull$" && data[target].value.trim().length === 0)
+                        || (json_dependency.condition === "$IsNotNull$" && data[target].value.trim().length !== 0)
+                    ) {
                         let is_flex = !!document.querySelector(`[data-id="${dependency}:${id}"]`).style.flexDirection.length;
                         let is_grid = !!document.querySelector(`[data-id="${dependency}:${id}"]`).style.gridTemplateAreas.length;
                         let is_webkit = !!document.querySelector(`[data-id="${dependency}:${id}"]`).style.webkitLineClamp.length;
@@ -704,7 +707,7 @@ window.ftd = (function () {
             if (action["parameters"].data !== undefined) {
                 let value = JSON.parse(action["parameters"].data[0].value);
                 let reference = JSON.parse(action["parameters"].data[0].reference);
-                let data = ftd_utils.resolve_reference(value, reference, ftd_data[id]);
+                let data = ftd_utils.resolve_reference(value, reference, ftd_data[id], obj);
                 let func = data.function.trim().replaceAll("-", "_");
                 window[func](id, data, reference);
             } else {
@@ -717,18 +720,18 @@ window.ftd = (function () {
             if (action["parameters"].by !== undefined) {
                 let by_value = action["parameters"].by[0].value;
                 let by_reference = action["parameters"].by[0].reference;
-                increment = parseInt(ftd_utils.resolve_reference(by_value, by_reference, ftd_data[id]));
+                increment = parseInt(ftd_utils.resolve_reference(by_value, by_reference, ftd_data[id], obj));
             }
             let clamp_max = undefined;
             let clamp_min = undefined;
             if (action["parameters"]["clamp"] !== undefined) {
                 let clamp_value = action["parameters"]["clamp"];
                 if (clamp_value.length === 1) {
-                    clamp_max = parseInt(ftd_utils.resolve_reference(clamp_value[0].value, clamp_value[0].reference, ftd_data[id]));
+                    clamp_max = parseInt(ftd_utils.resolve_reference(clamp_value[0].value, clamp_value[0].reference, ftd_data[id], obj));
                 }
                 if (clamp_value.length === 2) {
-                    clamp_min = parseInt(ftd_utils.resolve_reference(clamp_value[0].value, clamp_value[0].reference, ftd_data[id]));
-                    clamp_max = parseInt(ftd_utils.resolve_reference(clamp_value[1].value, clamp_value[1].reference, ftd_data[id]));
+                    clamp_min = parseInt(ftd_utils.resolve_reference(clamp_value[0].value, clamp_value[0].reference, ftd_data[id], obj));
+                    clamp_max = parseInt(ftd_utils.resolve_reference(clamp_value[1].value, clamp_value[1].reference, ftd_data[id], obj));
                 }
             }
             exports.increment_decrement_value(id, target, increment, clamp_min, clamp_max);
@@ -739,7 +742,7 @@ window.ftd = (function () {
             if (action["parameters"].by !== undefined) {
                 let by_value = action["parameters"].by[0].value;
                 let by_reference = action["parameters"].by[0].reference;
-                decrement = -parseInt(ftd_utils.resolve_reference(by_value, by_reference, ftd_data[id]));
+                decrement = -parseInt(ftd_utils.resolve_reference(by_value, by_reference, ftd_data[id], obj));
             }
 
             let clamp_max = undefined;
@@ -747,31 +750,56 @@ window.ftd = (function () {
             if (action["parameters"]["clamp"] !== undefined) {
                 let clamp_value = action["parameters"]["clamp"];
                 if (clamp_value.length === 1) {
-                    clamp_max = parseInt(ftd_utils.resolve_reference(clamp_value[0].value, clamp_value[0].reference, ftd_data[id]));
+                    clamp_max = parseInt(ftd_utils.resolve_reference(clamp_value[0].value, clamp_value[0].reference, ftd_data[id], obj));
                 }
                 if (clamp_value.length === 2) {
-                    clamp_min = parseInt(ftd_utils.resolve_reference(clamp_value[0].value, clamp_value[0].reference, ftd_data[id]));
-                    clamp_max = parseInt(ftd_utils.resolve_reference(clamp_value[1].value, clamp_value[1].reference, ftd_data[id]));
+                    clamp_min = parseInt(ftd_utils.resolve_reference(clamp_value[0].value, clamp_value[0].reference, ftd_data[id], obj));
+                    clamp_max = parseInt(ftd_utils.resolve_reference(clamp_value[1].value, clamp_value[1].reference, ftd_data[id], obj));
                 }
             }
 
             exports.increment_decrement_value(id, target, decrement, clamp_min, clamp_max);
         } else if (act === "set-value") {
             let target = action["target"];
-            let value = action["parameters"].value[0].value;
+            let value_data = action["parameters"].value[0];
+            let value = ftd_utils.resolve_reference(value_data.value, value_data.reference, ftd_data[id], obj)
             if (action["parameters"].value[1].value === "integer") {
                 value = parseInt(value);
             } else if (action["parameters"].value[1].value === "decimal") {
                 value = parseFloat(value);
             } else if (action["parameters"].value[1].value === "boolean") {
                 value = (value === "true");
-            } else if (action["parameters"].value[0].value === "$VALUE" && obj.value !== undefined ) {
-                value = obj.value
             }
 
             let data = ftd_data[id];
             ftd_utils.handle_action(id, target, value, data, ftd_external_children);
 
+        } else if (act === "insert") {
+            let target = action["target"];
+            let value = undefined;
+            if (action["parameters"].value !== undefined) {
+                let insert_value = action["parameters"].value[0].value;
+                let insert_reference = action["parameters"].value[0].reference;
+                value = ftd_utils.resolve_reference(insert_value, insert_reference, ftd_data[id], obj);
+            }
+            let at = undefined;
+            if (action["parameters"].at !== undefined) {
+                let at_value = action["parameters"].at[0].value;
+                let at_reference = action["parameters"].at[0].reference;
+                at = ftd_utils.resolve_reference(at_value, at_reference, ftd_data[id], obj);
+            }
+
+            exports.insert_value(id, target, value, at);
+
+        } else if (act === "clear") {
+            let target = action["target"];
+            let data = ftd_data[id];
+            let value = "";
+            if (ftd_utils.isJson(data[target].value)) {
+                let list = [];
+                value = JSON.stringify(list);
+            }
+            ftd_utils.handle_action(id, target, value, data, ftd_external_children);
         } else {
             console.log("unknown action:", act);
             return;
@@ -811,6 +839,38 @@ window.ftd = (function () {
         }
 
         ftd_utils.handle_action(id, variable, value, data, ftd_external_children);
+    }
+
+    exports.insert_value = function (id, target, value, at) {
+        let data = ftd_data[id];
+
+        if (!data[target]) {
+            console.log(target, "is not in data, ignoring");
+            return;
+        }
+
+        let list = data[target].value;
+        if (ftd_utils.isJson(list)) {
+            list = JSON.parse(list);
+        } else {
+            console.log(list, "is not list, ignoring");
+            return;
+        }
+
+        if (value === undefined || value.trim() === "") {
+            console.log("Nothing to insert in ", list);
+            return;
+        }
+
+        if (at !== undefined && at === "end") {
+            list.push(value);
+        } else if (at !== undefined && at === "start") {
+            list.unshift(value);
+        } else {
+            list.push(value);
+        }
+
+        ftd_utils.handle_action(id, target, JSON.stringify(list), data, ftd_external_children);
     }
 
     exports.set_bool = function (id, variable, value) {
@@ -887,19 +947,6 @@ window.ftd = (function () {
 
 function console_print(id, data) {
     console.log(data);
-}
-
-function append_list(id, data, reference) {
-    if (reference["list"] !== undefined) {
-        let value = window.ftd.get_value(id, reference["list"]);
-        if (ftd_utils.isJson(value)) {
-            let object = JSON.parse(value);
-            if ((object instanceof Array) && data["value"] !== undefined && data["value"].length !== 0) {
-                object.push(data["value"]);
-                window.ftd.set_string(id, reference["list"], JSON.stringify(object));
-            }
-        }
-    }
 }
 
 
