@@ -677,6 +677,7 @@ min-width: fill
 padding-left: 30
 padding-top: 3
 padding-bottom: 6
+margin-bottom: 5
 border-bottom: 2
 border-color: #4540D9
 border-color $fpm.dark-mode: #B4B2F1
