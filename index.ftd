@@ -14,6 +14,8 @@
 -- string neutral-800: #0A1A1F
 -- string header-dark-color: #151E4F
 -- string header-light-color: #151E4F
+-- string footer-dark-color: #000000
+-- string footer-light-color: #151E4F
 -- string sidebar-dark-color: transparent
 -- string sidebar-light-color: transparent
 -- string sidebar-mobile-dark-color: #2B2B2B
@@ -24,13 +26,17 @@
 -- string bg-desktop-dark: https://res.cloudinary.com/dh79l3hex/image/upload/v1643267665/home_desktop-dark_z3raie.png
 -- string bg-mobile-light: https://res.cloudinary.com/dh79l3hex/image/upload/v1643267529/home-mobile-light_tj0n27.png
 -- string bg-mobile-dark: https://res.cloudinary.com/dh79l3hex/image/upload/v1643267529/home-mobile-dark_vmvhip.png
+-- string code-caption-bg-light: #3a404e
+-- string code-caption-bg-dark: #3a404e
+-- string code-bg-light: #2b303b
+-- string code-bg-dark: #2b303b
 
 
 
 -- integer content-padding: 150
 -- integer max-width: 1000
 -- string github: NA
--- string site-name: .
+-- optional string site-name: 
 -- string site-icon: https://res.cloudinary.com/dh79l3hex/image/upload/v1643116033/FTD_logo_c3an5b.png
 -- string site-url: NA
 
@@ -65,7 +71,7 @@ top: 0
 bottom: 0
 left: 0
 right: 0
-background-color:  rgba (0, 0, 0, 0.5)
+background-color:  rgba (227, 227, 227, 0.9)
 z-index: 1
 $event-click$: toggle $sidebar-open
 
@@ -91,7 +97,11 @@ width: fill
 
 --- container: ftd.main
 
---- footer:
+/-- footer:
+
+uncomment below footer whenever required
+
+/--- footer:
 footer-toc: $footer-toc
 
 
@@ -200,7 +210,7 @@ toc-obj: $toc
 
 --- container: ftd.main
 
---- footer:
+/--- footer:
 footer-toc: $footer-toc
 
 -- ftd.column doc-page-mobile:
@@ -221,7 +231,7 @@ top: 0
 bottom: 0
 left: 0
 right: 0
-background-color:  rgba (0, 0, 0, 0.5)
+background-color:  rgba (227, 227, 227, 0.9)
 z-index: 1
 $event-click$: toggle $sidebar-open
 
@@ -247,9 +257,10 @@ align: top
 padding-horizontal: 20
 padding-vertical: 20
 
+
 --- container: ftd.main
 
---- footer:
+/--- footer:
 footer-toc: $footer-toc
 
 -- ftd.text site-link: $title
@@ -301,13 +312,9 @@ background-color: $header-light-color
 background-color if $fpm.dark-mode: $header-dark-color
 padding-horizontal: 20
 padding-vertical: 10
-border-bottom: 1
-border-color: #e1e1e1
-border-color if $fpm.dark-mode: #50656B
 color: white
 
 --- ftd.row:
-width: fill
 position: left
 spacing: 25
 id: left-side
@@ -322,7 +329,7 @@ height: 32
 width: auto
 
 --- site-link: $site-name
-
+if: $site-name is not null
 
 /--- container: left-side
 
@@ -395,9 +402,6 @@ background-color: $header-light-color
 background-color if $fpm.dark-mode: $header-dark-color
 padding-horizontal: 20
 padding-vertical: 10
-border-bottom: 1
-border-color: #e1e1e1
-border-color if $fpm.dark-mode: #343434
 
 
 --- ftd.row:
@@ -509,8 +513,8 @@ footer-toc: $footer-toc
 -- ftd.row footer-desktop:
 footer-item list footer-toc:
 width: fill
-background-color: #2b3136
-background-color if $fpm.dark-mode: #242424
+background-color: $footer-light-color
+background-color if $fpm.dark-mode: $footer-dark-color
 padding-horizontal: 150
 padding-vertical: 50
 spacing: space-between
@@ -522,8 +526,8 @@ footer-toc: $obj
 -- ftd.column footer-mobile:
 footer-item list footer-toc:
 width: fill
-background-color: #2b3136
-background-color if $fpm.dark-mode: #242424
+background-color: $footer-light-color
+background-color if $fpm.dark-mode: $footer-dark-color
 padding-horizontal: 20
 padding-vertical: 50
 position: left
@@ -570,11 +574,10 @@ width: fill
 --- ftd.text: $title
 size: 56
 line-height: 80
-style: bold
 color: $neutral
 width: percent 75
 position: center
-font: Roboto
+font: Roboto-700
 
 --- ftd.image:
 src: $image
@@ -631,8 +634,8 @@ spacing: 30
 -- ftd.text action-button:
 caption title:
 string url:
-optional string color: white
-optional string background-color: #25c19f
+optional string color: #ffffff
+optional string background-color: #4540D9
 text: $title
 link: $url
 background-color: $background-color
@@ -640,9 +643,8 @@ color: $color
 border-radius: 6
 padding-vertical: 15
 padding-horizontal: 40
-font: Roboto
+font: Roboto-700
 size: 20
-style: semi-bold
 
 
 -- ftd.text banner:
@@ -653,7 +655,7 @@ style: semi-bold
 padding: 45
 text-align: center
 color: #25c19f
-background-color: #20232a
+background-color: transparent
 width: fill
 font: Roboto
 
@@ -699,7 +701,7 @@ text: $toc.title
 size: 16
 line-height: 18
 min-width: fit-content
-padding-left: 30
+padding-left: 20
 padding-top: 3
 padding-bottom: 3
 font: Roboto-300
@@ -854,7 +856,7 @@ color if $fpm.dark-mode: $neutral
 style: bold
 padding-bottom: 20
 padding-top: 16
-font: Roboto
+font: Roboto-700
 
 --- markdown:
 if: $body is not null
@@ -960,6 +962,7 @@ body: $body
 
 
 
+
 -- ftd.column code:
 optional caption caption:
 body body:
@@ -976,13 +979,14 @@ if: $caption is not null
 color: #DCDCDC
 width: fill
 size: 14
-background-color: #3a404e
 padding-top: 10
 padding-bottom: 10
 padding-left: 20
 padding-right: 20
 border-top-radius: 4
-font: Open sans
+font: Roboto
+background-color: $code-caption-bg-light
+background-color if $fpm.dark-mode: $code-caption-bg-dark
 
 --- ftd.code:
 if: $caption is not null
@@ -996,9 +1000,10 @@ padding-top: 10
 padding-left: 20
 padding-bottom: 10
 padding-right: 20
-background-color: #2b303b
 border-bottom-radius: 4
 overflow-x: auto
+background-color: $code-bg-light
+background-color if $fpm.dark-mode: $code-bg-dark
 
 --- ftd.code:
 if: $caption is null
@@ -1012,10 +1017,13 @@ padding-top: 10
 padding-left: 20
 padding-bottom: 10
 padding-right: 20
-background-color: #2b303b
 border-bottom-radius: 4
 border-top-radius: 4
 overflow-x: auto
+background-color: $code-bg-light
+background-color if $fpm.dark-mode: $code-bg-dark
+
+
 
 
 -- ftd.row feature-list:
