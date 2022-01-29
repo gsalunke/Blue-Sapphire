@@ -189,7 +189,7 @@ align: center
 
 --- ftd.column:
 id: main-container
-/min-height: percent 100
+height: calc 100vh - 0px
 max-width: 1000
 align: top
 spacing: 100
