@@ -189,10 +189,10 @@ align: center
 
 --- ftd.column:
 id: main-container
-height: calc 100vh - 0px
+min-height: calc 100vh - 0px
 max-width: 1000
+min-width: 1000
 align: top
-spacing: 100
 margin-left: 92
 /margin-right: 92
 margin-top: 50
