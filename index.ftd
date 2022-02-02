@@ -724,7 +724,7 @@ height: calc 100vh - 0px
 overflow-y: auto
 width: 300
 align: top-left
-padding-left: 10
+padding-left: 0
 padding-top: 100
 padding-right: 20
 padding-bottom: 40
