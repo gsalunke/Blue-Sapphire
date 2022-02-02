@@ -183,15 +183,15 @@ open: main-container
 
 --- ftd.row:
 width: fill
-max-width: 1380
+max-width: 1440
 id: main-row
 align: center
 
 --- ftd.column:
 id: main-container
 min-height: calc 100vh - 0px
-max-width: 1000
-min-width: 1000
+max-width: 800
+min-width: 800
 align: top
 margin-left: 92
 /margin-right: 92
@@ -272,6 +272,7 @@ color: white
 color if $fpm.dark-mode: $neutral
 line-height: 22
 align: center
+white
 
 
 -- ftd.text header-link: $title
@@ -284,6 +285,7 @@ color if $fpm.dark-mode: $neutral
 link: $link
 line-height: 22
 align: center
+
 
 
 -- ftd.column h0:
@@ -795,6 +797,33 @@ width: fill
 region: h0
 padding-bottom: 12
 
+
+--- ftd.row:
+if: not $fpm.mobile
+spacing: 5
+padding-top: 30
+anchor: parent
+top: 0
+left: -65
+
+--- ftd.row:
+height: 5
+background-color: #BDBFCA
+width: 25
+open: false
+align: top
+
+--- ftd.row:
+height: 5
+background-color: #BDBFCA
+width: 25
+open: false
+align: top
+
+--- container: ftd.main
+
+
+
 --- ftd.text:
 text: $title
 caption $title:
@@ -883,7 +912,7 @@ size: 32
 line-height: 26
 color: $neutral-800
 color if $fpm.dark-mode: $neutral
-padding-bottom: 20
+padding-bottom: 18
 padding-top: 16
 font: Roboto-700
 
@@ -901,16 +930,41 @@ width: fill
 region: h2
 padding-bottom: 12
 
+--- ftd.row:
+if: not $fpm.mobile
+spacing: 5
+padding-top: 30
+anchor: parent
+top: -3
+left: -65
+
+--- ftd.row:
+height: 3
+background-color: #BDBFCA
+width: 25
+open: false
+align: top
+
+--- ftd.row:
+height: 3
+background-color: #BDBFCA
+width: 25
+open: false
+align: top
+
+--- container: ftd.main
+
+
 --- ftd.text:
 caption $title:
 text: $title
 region: title
 size: 26
-line-height: 32
+line-height: 26
 color: $neutral-800
 color if $fpm.dark-mode: $neutral
 style: bold
-padding-bottom: 8
+padding-bottom: 15
 padding-top: 16
 font: Roboto
 
