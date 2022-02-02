@@ -3,3 +3,4 @@
 
 .build/FPM/index.html
 *.html
+.build/sample/index.html

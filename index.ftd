@@ -22,10 +22,10 @@
 -- string sidebar-mobile-light-color: #F6F7FB
 -- string content-light-color: #ffffff
 -- string content-dark-color: #2A2A2A
--- string bg-desktop-light: /images/home-desktop-light.png
--- string bg-desktop-dark: /images/home-desktop-dark.png
--- string bg-mobile-light: /images/home-mobile-light.png
--- string bg-mobile-dark: /images/home-mobile-dark.png
+-- string bg-desktop-light: images/home-desktop-light.png
+-- string bg-desktop-dark: images/home-desktop-dark.png
+-- string bg-mobile-light: images/home-mobile-light.png
+-- string bg-mobile-dark: images/home-mobile-dark.png
 -- string code-caption-bg-light: #3a404e
 -- string code-caption-bg-dark: #3a404e
 -- string code-bg-light: #2b303b
@@ -37,7 +37,7 @@
 -- integer max-width: 1000
 -- string github: NA
 -- optional string site-name: 
--- string site-icon: /images/FTD-logo.png
+-- string site-icon: images/FTD-logo.png
 -- string site-url: NA
 
 
@@ -358,8 +358,8 @@ link: $obj.url
 
 --- ftd.image:
 if: not $fpm.dark-mode
-/src: /images/github-dark.svg
-src: /images/github-light.svg
+/src: images/github-dark.svg
+src: images/github-light.svg
 width: 20
 min-width: 20
 link: $github
@@ -369,7 +369,7 @@ align: center
 
 --- ftd.image:
 if:  $fpm.dark-mode
-src: /images/github-light.svg
+src: images/github-light.svg
 width: 20
 min-width: 20
 link: $github
@@ -379,8 +379,8 @@ align: center
 
 --- ftd.image:
 if: not $fpm.dark-mode
-/src: /images/dark-mode.svg
-src: /images/light-mode.svg
+/src: images/dark-mode.svg
+src: images/light-mode.svg
 height: 18
 $event-click$: message-host enable-dark-mode
 align: center
@@ -389,7 +389,7 @@ align: center
 
 --- ftd.image:
 if:  $fpm.dark-mode
-src: /images/light-mode.svg
+src: images/light-mode.svg
 height: 18
 $event-click$: message-host enable-light-mode
 align: center
@@ -410,8 +410,8 @@ spacing: 25
 id: left-side
 
 --- ftd.image:
-/src: /images/Vector_3.svg
-src: /images/hamburger.png
+/src: images/Vector_3.svg
+src: images/hamburger.png
 width: 24
 height: auto
 $event-click$: toggle $sidebar-open
@@ -446,17 +446,17 @@ width: auto
 
 
 --- ftd.image:
-/src: /images/github-dark.svg
-src: /images/github-light.svg
+/src: images/github-dark.svg
+src: images/github-light.svg
 width: 20
 min-width: 20
 link: $github
 align: center
 
 --- ftd.image:
-/src: /images/dark-mode.svg
+/src: images/dark-mode.svg
 height: 18
-src: /images/light-mode.svg
+src: images/light-mode.svg
 $event-click$: toggle $fpm.dark-mode
 align: center
 
@@ -845,23 +845,53 @@ optional body body:
 width: fill
 region: h1
 padding-bottom: 12
+spacing: 10
+
+--- ftd.row:
+if: not $fpm.mobile
+spacing: 5
+padding-top: 30
+anchor: parent
+top: 8
+left: -65
+
+--- ftd.row:
+height: 4
+background-color: #BDBFCA
+width: 25
+open: false
+align: top
+
+--- ftd.row:
+height: 4
+background-color: #BDBFCA
+width: 25
+open: false
+align: top
+
+--- container: ftd.main
+
+/--- ftd.column:
+spacing: 10
+width: fill
 
 --- ftd.text:
 caption $title:
 text: $title
 region: title
 size: 32
-line-height: 32
+line-height: 26
 color: $neutral-800
 color if $fpm.dark-mode: $neutral
-style: bold
 padding-bottom: 20
 padding-top: 16
 font: Roboto-700
 
+
 --- markdown:
 if: $body is not null
 body: $body
+
 
 
 -- ftd.column h2:
@@ -1426,7 +1456,7 @@ style: medium
 
 --- ftd.image:
 if: $link is not null
-src: /images/arrow.svg
+src: images/arrow.svg
 width: 16
 
 --- container: ftd.main
