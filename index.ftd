@@ -30,6 +30,8 @@
 -- string code-caption-bg-dark: #3a404e
 -- string code-bg-light: #2b303b
 -- string code-bg-dark: #2b303b
+-- string toc-sidebar-width: 300
+-- string toc-mobile-sidebar-width: percent 70
 
 
 
@@ -728,7 +730,7 @@ sticky: true
 top: 0
 height: calc 100vh - 0px
 overflow-y: auto
-width: 300
+width: $toc-sidebar-width
 align: top-left
 padding-left: 0
 padding-top: 100
@@ -750,7 +752,7 @@ toc-item list toc-obj:
 sticky: true
 height: calc 100vh - 0px
 overflow-y: auto
-width: percent 70
+width: $toc-mobile-sidebar-width
 align: top-left
 padding-left: 10
 padding-top: 15
