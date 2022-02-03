@@ -37,7 +37,8 @@
 -- integer max-width: 1000
 -- string github: NA
 -- optional string site-name: 
--- string site-icon: images/FTD-logo-new.png
+-- string site-icon: images/ftd-logo-desktop.png
+-- string site-icon-mobile: images/ftd-logo-mobile.png
 -- string site-url: NA
 
 
@@ -313,7 +314,7 @@ width: fill
 background-color: $header-light-color
 background-color if $fpm.dark-mode: $header-dark-color
 padding-horizontal: 20
-padding-vertical: 10
+padding-vertical: 15
 color: white
 
 --- ftd.row:
@@ -327,8 +328,10 @@ link: $site-url
 
 --- ftd.image:
 src: $site-icon
-width: fill
-max-height: 50
+width: 113
+height: 47
+width if $fpm.mobile: 105
+height if $fpm.mobile: 43
 
 --- site-link: $site-name
 if: $site-name is not null
@@ -403,7 +406,7 @@ width: fill
 background-color: $header-light-color
 background-color if $fpm.dark-mode: $header-dark-color
 padding-horizontal: 20
-padding-vertical: 10
+padding-vertical: 15
 
 
 --- ftd.row:
@@ -424,8 +427,11 @@ spacing: 10
 link: $site-url
 
 --- ftd.image:
-src: $site-icon
-width: fill
+src: $site-icon-mobile
+width: 113
+height: 47
+width if $fpm.mobile: 78
+height if $fpm.mobile: 32
 
 
 --- site-link: $site-name
