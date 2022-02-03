@@ -37,7 +37,7 @@
 -- integer max-width: 1000
 -- string github: NA
 -- optional string site-name: 
--- string site-icon: images/FTD-logo.svg
+-- string site-icon: images/FTD-logo-new.png
 -- string site-url: NA
 
 
@@ -425,8 +425,7 @@ link: $site-url
 
 --- ftd.image:
 src: $site-icon
-height: 32
-width: auto
+width: fill
 
 
 --- site-link: $site-name
